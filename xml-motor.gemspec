@@ -21,12 +21,16 @@ Gem::Specification.new do |s|
            XMLMotor.get_node_from_file <file_with_path>, <node>
          + To find values of an xml node from an xml string
            XMLMotor.get_node_from_content <xml_string>, <node>
+         + To find values of an xml node with a tag_name having required attribute
+           XMLMotor.get_node_from_content <xml_string>, <node>, "<attrib_key>=<attrib_value>"
 
         Example Calls As Code:
          + XMLMotor.get_node_from_content "<A>a</A><B><A>ba</A></B>", "A"
              RETURNS: ["a", "ba"]
          + XMLMotor.get_node_from_content "<A>a</A><B><A>ba</A></B>", "B.A"
              RETURNS: ["ba"]
+         + XMLMotor.get_node_from_content "<A i='1'>a</A><B><A i='2'>ba</A></B>", "A", "i='1'"
+             RETURNS: ["a"]
   }
 
   s.rubyforge_project = "xml-motor"
