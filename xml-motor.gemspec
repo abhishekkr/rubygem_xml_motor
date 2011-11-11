@@ -10,19 +10,25 @@ Gem::Specification.new do |s|
   s.homepage    = "http://github.com/abhishekkr/rubygem_xml_motor"
   s.summary     = %q{An easy-to-use XML Parser without any Native Dependencies}
   s.description = %q{A new short XML Parsing Algorithm implemented directly in >500 lines. An easy-to-use XML Parser without any Native Dependencies.
-      [How To Use]:
+      
+       [How To Use]: https://github.com/abhishekkr/rubygem_xml_motor/raw/master/README  
 
         Loading:
          + $ gem install xml-motor
          + 'require' the 'xml-motor'
 
         Usage:
-         + To find values of an xml node from an xml file
-           XMLMotor.get_node_from_file <file_with_path>, <node>
-         + To find values of an xml node from an xml string
-           XMLMotor.get_node_from_content <xml_string>, <node>
-         + To find values of an xml node with a tag_name having required attribute
-           XMLMotor.get_node_from_content <xml_string>, <node>, "<attrib_key>=<attrib_value>"
+           [[ To Search Just One QUERY ]]
+             nodes_array = XMLMotor.get_node_from_file "_XML_FILE_"
+             nodes_array = XMLMotor.get_node_from_file "_XML_FILE_", "ATTRIB_KEY=ATTRIB_VALUE"
+             nodes_array = XMLMotor.get_node_from_content "_XML_DATA_"
+             nodes_array = XMLMotor.get_node_from_content "_XML_DATA_", "ATTRIB_KEY=ATTRIB_VALUE"
+           [[ To Search More Than One QUERIES ]]
+             str = {XML_DATA}
+             nodes_ = XMLMotorEngine._splitter_ str
+             tags_ = XMLMotorEngine._indexify_ nodes_
+             nodes_array = XMLMotorEngine.pre_processed_content nodes_, tags_, "_TAG_"
+             nodes_array = XMLMotorEngine.pre_processed_content nodes_, tags_, "_TAG_", "ATTRIB_KEY=ATTRIB_VALUE"
 
         Example Calls As Code:
          + XMLMotor.get_node_from_content "<A>a</A><B><A>ba</A></B>", "A"
