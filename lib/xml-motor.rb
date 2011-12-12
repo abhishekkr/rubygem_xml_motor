@@ -121,7 +121,8 @@ module XMLMotorEngine
     0.upto node_count do |ncount|
       node_start = xml_to_find[ncount*2]
       node_stop = xml_to_find[ncount*2 +1]
-      unless attrib_to_find.nil? or @xmlnodes[node_start][0][1].nil?
+      unless attrib_to_find.nil?
+	next if @xmlnodes[node_start][0][1].nil?
         next unless @xmlnodes[node_start][0][1][attrib_key] == attrib_val
       end
       nodes[ncount] ||= ""
@@ -189,7 +190,7 @@ end
 module XMLMotor
   def self.get_node_from_file(file, my_tag=nil, my_attrib=nil)
     begin
-      return get_node_from_content(File.read(file.to_s), my_tag, my_attrib) unless File.readable? file.to_s
+      return get_node_from_content(File.read(file.to_s), my_tag, my_attrib) if File.readable? file.to_s
     rescue
       puts "Error: #{file} is not readable."
     end

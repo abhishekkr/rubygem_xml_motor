@@ -4,7 +4,7 @@
  //\\ ||  || ||_    ||  || ||_||  ||  ||_|| ||\\
 
 ======================================================================
-v 0.0.2
+v 0.0.4
 
 @GitHub: https://github.com/abhishekkr/rubygem_xml_motor
 @RubyGems: http://rubygems.org/gems/xml-motor
@@ -43,3 +43,9 @@ An easy-to-use XML Parser without any Native Dependencies.
          + XMLMotor.get_node_from_content "<A i='1'>a</A><B><A i='2'>ba</A></B>", "A", "i='1'"
              RETURNS: ["a"]
 
+=====================================================================
+=====================================================================
+Changes from v0.0.3 to v0.0.4
+[] 2 stupid mistakes corrected 
+ + one in file-based xml parsing
+ + attrib match corrected for null attribs
