@@ -14,6 +14,10 @@ for support contact:
   http://www.twitter.com/aBionic
 ======================================================================
 
+the main development for this algo (to be done in other languages too) is handled in
+https://github.com/abhishekkr/axml-motor
+and you could find the test-cases in there too, to proceed on your own
+
 A new short XML Parsing Algorithm implemented directly in >500 lines. 
 An easy-to-use XML Parser without any Native Dependencies.
       [How To Use]:
