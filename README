@@ -51,6 +51,9 @@ An easy-to-use XML Parser without any Native Dependencies.
 =====================================================================
 CHANGE-LOG
 =====================================================================
+Changes from v0.0.6 to v0.0.7
+[] correcting the attribute matching to be sensitive to single and double quotes 
+=====================================================================
 Changes from v0.0.5 to v0.0.6
 [] correcting the attribute parsing to handle line-change well, corrected my mistake
 =====================================================================
