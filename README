@@ -49,6 +49,11 @@ An easy-to-use XML Parser without any Native Dependencies.
 
 =====================================================================
 =====================================================================
+CHANGE-LOG
+=====================================================================
+Changes from v0.0.5 to v0.0.6
+[] correcting the attribute parsing to handle line-change well, corrected my mistake
+=====================================================================
 Changes from v0.0.3 to v0.0.4
 [] 2 stupid mistakes corrected 
  + one in file-based xml parsing
