@@ -17,7 +17,7 @@ module XMLUtils
 end
 
 module XMLIndexHandler
-  def self.get_node_indexes(xml_motor, tag)
+  def self.get_tag_indexes(xml_motor, tag)
    xml_idx_to_find = []
    begin
     xml_motor.xmltags[tag.split(".")[0]].each_value {|val|  xml_idx_to_find.push val }
@@ -141,15 +141,15 @@ module XMLMotorEngine
     [attrib_key, XMLUtils.dbqot_string(attrib_val)]
   end
 
-  def self._grab_my_node_ (xml_to_find, attrib_to_find=nil, with_tag=false)
+  def self._grab_my_node_ (index_to_find, attrib_to_find=nil, with_tag=false)
     unless attrib_to_find.nil? or attrib_to_find.empty?
       attrib_keyval = [attrib_to_find].flatten.collect{|keyval| _get_attrib_key_val_ keyval }
     end
     nodes = []
-    node_count = xml_to_find.size/2 -1
+    node_count = index_to_find.size/2 -1
     0.upto node_count do |ncount|
-      node_start = xml_to_find[ncount*2]
-      node_stop = xml_to_find[ncount*2 +1]
+      node_start = index_to_find[ncount*2]
+      node_stop = index_to_find[ncount*2 +1]
       unless attrib_to_find.nil? or attrib_to_find.empty?
 	next if @xmlnodes[node_start][0][1].nil?
         next if attrib_keyval.collect{|keyval| @xmlnodes[node_start][0][1][keyval.first] == keyval.last}.include? false
@@ -172,20 +172,15 @@ module XMLMotorEngine
   end
 
   def self.xml_extracter(tag_to_find=nil, attrib_to_find=nil, with_tag=false)
-    my_nodes = nil
+    index_to_find = []
     if attrib_to_find.nil? and tag_to_find.nil?
-    elsif attrib_to_find.nil?
-      xml_to_find = XMLIndexHandler.get_node_indexes self, tag_to_find
-      my_nodes = _grab_my_node_ xml_to_find, nil, with_tag
+      return nil
     elsif tag_to_find.nil? 
-      #
-      XMLStdout._nfo "Just attrib-based search to come"
-      #
+      index_to_find = @xmltags.collect {|xtag| xtag[1].collect {|val| val[1] }}.flatten
     else
-      xml_to_find = XMLIndexHandler.get_node_indexes self, tag_to_find
-      my_nodes = _grab_my_node_ xml_to_find, attrib_to_find, with_tag
+      index_to_find = XMLIndexHandler.get_tag_indexes self, tag_to_find.downcase
     end
-    my_nodes
+    _grab_my_node_ index_to_find, attrib_to_find, with_tag
   end  
 
   def self.xml_miner(xmldata, tag_to_find=nil, attrib_to_find=nil, with_tag=false)
