@@ -61,6 +61,9 @@ An easy-to-use XML Parser without any Native Dependencies.
 =====================================================================
 CHANGE-LOG
 =====================================================================
+Changes from v0.0.9 to v0.0.10
+[] xml tag name match corrected to be case-insensitive
+=====================================================================
 Changes from v0.0.8 to v0.0.9
 [] option to filter result for multiple attributes key-value pair if sent as an array of "ATTRIB_KEY = ATTRIB_VALUE" 
    for e.g.
