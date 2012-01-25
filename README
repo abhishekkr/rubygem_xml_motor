@@ -4,7 +4,7 @@
  //\\ ||  || ||_    ||  || ||_||  ||  ||_|| ||\\
 
 ======================================================================
-v 0.0.8
+v 0.1.0
 
 @GitHub: https://github.com/abhishekkr/rubygem_xml_motor
 @RubyGems: http://rubygems.org/gems/xml-motor
@@ -67,40 +67,3 @@ An easy-to-use XML Parser without any Native Dependencies.
 
 =====================================================================
 =====================================================================
-CHANGE-LOG
-=====================================================================
-Changes from v0.0.10 to v0.1.0
-[] support added to search for xml nodes just by using their attributes without any tag-name
-   for e.g.
-     nodes_array = XMLMotorEngine.pre_processed_content nodes_, tags_, nil, "ATTRIB_KEY=ATTRIB_VALUE", true
-     nodes_array = XMLMotorEngine.pre_processed_content nodes_, tags_, nil, ["ATTRIB_KEY=ATTRIB_VALUE"], true
-     nodes_array = XMLMotorEngine.pre_processed_content nodes_, tags_, nil, ["KEY1=VALUE1", "KEY2=VALUE2"...]
-=====================================================================
-Changes from v0.0.9 to v0.0.10
-[] xml tag name match corrected to be case-insensitive
-=====================================================================
-Changes from v0.0.8 to v0.0.9
-[] option to filter result for multiple attributes key-value pair if sent as an array of "ATTRIB_KEY = ATTRIB_VALUE" 
-   for e.g.
-     nodes_array = XMLMotorEngine.pre_processed_content nodes_, tags_, "_TAG_", "ATTRIB_KEY=ATTRIB_VALUE", true
-     nodes_array = XMLMotorEngine.pre_processed_content nodes_, tags_, "_TAG_", ["ATTRIB_KEY=ATTRIB_VALUE"], true
-     nodes_array = XMLMotorEngine.pre_processed_content nodes_, tags_, "_TAG_", ["KEY1=VALUE1", "KEY2=VALUE2"...], true
-=====================================================================
-Changes from v0.0.7 to v0.0.8
-[] avail the result inclusive of root-node-value with an extra 'true' after attrib/nil
-   for e.g.
-    XMLMotor.get_node_from_content "<a><b id=\"2\">a.b</b></a>", "b", nil, true
-    XMLMotor.get_node_from_content "<a><b id=\"2\">a.b</b></a>", "b", "id='2'", true
-   both of above would give
-    ["<b id=\"2\">a.b</b>"]
-=====================================================================
-Changes from v0.0.6 to v0.0.7
-[] correcting the attribute matching to be sensitive to single and double quotes 
-=====================================================================
-Changes from v0.0.5 to v0.0.6
-[] correcting the attribute parsing to handle line-change well, corrected my mistake
-=====================================================================
-Changes from v0.0.3 to v0.0.4
-[] 2 stupid mistakes corrected 
- + one in file-based xml parsing
- + attrib match corrected for null attribs
