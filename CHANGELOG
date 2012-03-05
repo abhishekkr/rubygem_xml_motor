@@ -7,6 +7,13 @@
 =====================================================================
 CHANGE-LOG
 =====================================================================
+Changes from v0.1.0 to v0.1.1
+[] cleaned up usage for XML Mining of Pre-processed data
+   for e.g.
+     nodes_      = XMLMotor.splitter <<XMLCONTENT>>
+     tags_       = XMLMotor.indexify nodes_
+     nodes_array = XMLMotor.xmldata nodes_, tags_, nil, "ATTRIB_KEY=ATTRIB_VALUE", true
+=====================================================================
 Changes from v0.0.10 to v0.1.0
 [] support added to search for xml nodes just by using their attributes without any tag-name
    for e.g.

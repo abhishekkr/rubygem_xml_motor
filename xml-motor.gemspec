@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.name        = "xml-motor"
   s.version     = Xml::Motor::VERSION
   s.authors     = ["abhishekkr"]
-  s.email       = ["abhishk@thoughtworks.com"]
+  s.email       = ["abhikumar163@gmail.com"]
   s.homepage    = "http://github.com/abhishekkr/rubygem_xml_motor"
   s.summary     = %q{An easy-to-use XML Parser without any Native Dependencies}
   s.description = %q{A new short XML Parsing Algorithm implemented directly in >500 lines. An easy-to-use XML Parser without any Native Dependencies.
@@ -25,10 +25,10 @@ Gem::Specification.new do |s|
              nodes_array = XMLMotor.get_node_from_content "_XML_DATA_", "ATTRIB_KEY=ATTRIB_VALUE"
            [[ To Search More Than One QUERIES ]]
              str = {XML_DATA}
-             nodes_ = XMLMotorEngine._splitter_ str
-             tags_ = XMLMotorEngine._indexify_ nodes_
-             nodes_array = XMLMotorEngine.pre_processed_content nodes_, tags_, "_TAG_"
-             nodes_array = XMLMotorEngine.pre_processed_content nodes_, tags_, "_TAG_", "ATTRIB_KEY=ATTRIB_VALUE"
+             nodes_ = XMLMotor.splitter str
+             tags_ = XMLMotor.indexify nodes_
+             nodes_array = XMLMotor.xmldata nodes_, tags_, "_TAG_"
+             nodes_array = XMLMotor.xmldata nodes_, tags_, "_TAG_", "ATTRIB_KEY=ATTRIB_VALUE"
 
         Example Calls As Code:
          + XMLMotor.get_node_from_content "<A>a</A><B><A>ba</A></B>", "A"
