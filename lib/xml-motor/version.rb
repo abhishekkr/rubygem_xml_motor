@@ -1,5 +1,3 @@
-module Xml
-  module Motor
-    VERSION = "0.1.1"
-  end
+module XmlMotor
+  VERSION = "0.1.2"
 end

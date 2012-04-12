@@ -4,7 +4,7 @@ require "xml-motor/version"
 
 Gem::Specification.new do |s|
   s.name        = "xml-motor"
-  s.version     = Xml::Motor::VERSION
+  s.version     = XmlMotor::VERSION
   s.authors     = ["abhishekkr"]
   s.email       = ["abhikumar163@gmail.com"]
   s.homepage    = "http://github.com/abhishekkr/rubygem_xml_motor"
