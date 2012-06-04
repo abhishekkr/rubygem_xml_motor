@@ -7,6 +7,16 @@
 =====================================================================
 CHANGE-LOG
 =====================================================================
+Changes from v0.1.3 to v0.1.4
+[] Fixed node tree (like x.y.z) parsing for not existing node
+[] Err/Info messages just shown when env has VERBOSE=''
+=====================================================================
+Changes from v0.1.2 to v0.1.3
+[] just a Quick Fix to handle weird Attribute Values, main fix to come
+=====================================================================
+Changes from v0.1.1 to v0.1.2
+[] Fixed Empty Node Handling, its been listed/counted as well
+=====================================================================
 Changes from v0.1.0 to v0.1.1
 [] cleaned up usage for XML Mining of Pre-processed data
    for e.g.

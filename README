@@ -66,5 +66,6 @@ An easy-to-use XML Parser without any Native Dependencies.
          + XMLMotor.get_node_from_content "<A i='1'>a</A><B><A i='2'>ba</A></B>", "A", "i='1'"
              RETURNS: ["a"]
 
+To turn on the verbosity for errors in XML-Motor, set an Environment value for 'VERBOSE'.
 =====================================================================
 =====================================================================
