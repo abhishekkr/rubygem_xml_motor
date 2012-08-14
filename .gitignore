@@ -1,2 +1,4 @@
 .bundle
 pkg
+*.gem
+Gemfile.lock
