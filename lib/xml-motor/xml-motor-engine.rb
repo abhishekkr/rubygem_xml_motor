@@ -3,9 +3,15 @@ module XMLMotorEngine
     start_splits = xmldata.split(/</)
     @xmlnodes = [start_splits[0]]
     start_splits[1..-1].each do |val|
-      tag_attr = XMLChopper.get_tag_attrib_value(val)
-      @xmlnodes.push tag_attr
-      @xmlnodes.push [["/#{tag_attr[0][0]}", nil], ''] if val.match(/\/>/)
+      tag_attr = XMLChopper.get_tag_attrib_value(val.gsub('/>','>'))
+      if val.match(/\/>/)
+        post_attr = tag_attr[1]
+        tag_attr[1] = ''
+        @xmlnodes.push tag_attr
+        @xmlnodes.push [["/#{tag_attr[0][0]}", nil], post_attr]
+      else
+        @xmlnodes.push tag_attr
+      end
     end
     @xmlnodes
   end
