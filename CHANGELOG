@@ -7,6 +7,17 @@
 =====================================================================
 CHANGE-LOG
 =====================================================================
+Changes from v0.1.4 to v0.1.5
+[] Fixed grep for nodes like "<splitline color='green'/>"
+[] Fetch nodes with ATTRIB_KEY for a/all node by not giving its ATTRIB_VALUE
+   for e.g.
+     nodes_array = XMLMotorEngine.pre_processed_content nodes_, tags_, 'splitline', "ATTRIB_KEY"
+     nodes_array = XMLMotorEngine.pre_processed_content nodes_, tags_, nil, ["ATTRIB_KEY"]
+[] Fetch nodes with ATTRIB_VALUE for a/all node by not giving its ATTRIB_KEY
+   for e.g. //just append value with '='
+     nodes_array = XMLMotorEngine.pre_processed_content nodes_, tags_, 'splitline', "='ATTRIB_VALUE'"
+     nodes_array = XMLMotorEngine.pre_processed_content nodes_, tags_, nil, ["='ATTRIB_KEY'"]
+=====================================================================
 Changes from v0.1.3 to v0.1.4
 [] Fixed node tree (like x.y.z) parsing for not existing node
 [] Err/Info messages just shown when env has VERBOSE=''

@@ -34,6 +34,8 @@ An easy-to-use XML Parser without any Native Dependencies.
              nodes_array = XMLMotor.xmldata nodes_, tags_, "_TAG_"
              nodes_array = XMLMotor.xmldata nodes_, tags_, "_TAG_", "ATTRIB_KEY=ATTRIB_VALUE"
              nodes_array = XMLMotor.xmldata nodes_, tags_, nil, "ATTRIB_KEY=ATTRIB_VALUE"
+             nodes_array = XMLMotor.xmldata nodes_, tags_, nil, "ATTRIB_KEY"
+             nodes_array = XMLMotor.xmldata nodes_, tags_, nil, "='ATTRIB_VALUE'"
              >>>>> for having root-node-tag also in returned result <<<<<
              nodes_array = XMLMotor.xmldata nodes_, tags_, "_TAG_", nil, true
              nodes_array = XMLMotor.xmldata nodes_, tags_, "_TAG_", "ATTRIB_KEY=ATTRIB_VALUE", true
