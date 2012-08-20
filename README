@@ -27,6 +27,18 @@ An easy-to-use XML Parser without any Native Dependencies.
          + 'require' the 'xml-motor'
 
         Usage:
+           [[ To Fetch Just Attribute Values ]]
+             str = {XML_DATA}
+             nodes_ = XMLMotor.splitter str
+             tags_ = XMLMotor.splitter nodes_
+             XMLMotor.xmlattrib 'attrib_to_fetch_value', nodes_, tags_
+             XMLMotor.xmlattrib 'attrib_to_fetch_value', nodes_, tags_, <_TAG_>
+             XMLMotor.xmlattrib 'attrib_to_fetch_value', nodes_, tags_, <_TAG_>, "ATTRIB_KEY"
+             XMLMotor.xmlattrib 'attrib_to_fetch_value', nodes_, tags_, <_TAG_>, "ATTRIB_KEY="
+             XMLMotor.xmlattrib 'attrib_to_fetch_value', nodes_, tags_, <_TAG_>, "ATTRIB_KEY=ATTRIB_VALUE"
+             XMLMotor.xmlattrib 'attrib_to_fetch_value', nodes_, tags_, <_TAG_>, "=ATTRIB_VALUE"
+
+
            [[ To Search More Than One QUERIES ]]
              str = {XML_DATA}
              nodes_ = XMLMotor.splitter str

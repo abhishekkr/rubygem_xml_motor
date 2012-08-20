@@ -7,6 +7,10 @@
 =====================================================================
 CHANGE-LOG
 =====================================================================
+Changes from v0.1.5 to v0.1.6
+[] XMLMotor.xmlattrib to fetch attribute values from XML
+[] fixing attrib value infection for db-quote
+=====================================================================
 Changes from v0.1.4 to v0.1.5
 [] Fixed grep for nodes like "<splitline color='green'/>"
 [] Fetch nodes with ATTRIB_KEY for a/all node by not giving its ATTRIB_VALUE
