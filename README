@@ -30,7 +30,7 @@ An easy-to-use XML Parser without any Native Dependencies.
            [[ To Fetch Just Attribute Values ]]
              str = {XML_DATA}
              nodes_ = XMLMotor.splitter str
-             tags_ = XMLMotor.splitter nodes_
+             tags_ = XMLMotor.indexify nodes_
              XMLMotor.xmlattrib 'attrib_to_fetch_value', nodes_, tags_
              XMLMotor.xmlattrib 'attrib_to_fetch_value', nodes_, tags_, <_TAG_>
              XMLMotor.xmlattrib 'attrib_to_fetch_value', nodes_, tags_, <_TAG_>, "ATTRIB_KEY"
