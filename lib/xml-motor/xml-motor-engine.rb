@@ -55,7 +55,8 @@ module XMLMotorEngine
     0.upto node_count do |ncount|
       node_start = index_to_find[ncount*2]
       node_stop = index_to_find[ncount*2 +1]
-      next if XMLMotorEngine::AirFilter.filter?(attrib, @xmlnodes[node_start])
+      next if XMLMotorEngine::AirFilter.filter?(attrib,
+                                                @xmlnodes[node_start][0][1])
 
       nodes[ncount] ||= ""
       nodes[ncount] += @xmlnodes[node_start][1] unless @xmlnodes[node_start][1].nil?
@@ -79,7 +80,8 @@ module XMLMotorEngine
     0.upto node_count do |ncount|
       node_start = index_to_find[ncount*2]
       node_stop = index_to_find[ncount*2 +1]
-      next if XMLMotorEngine::AirFilter.filter?(attrib, @xmlnodes[node_start])
+      next if XMLMotorEngine::AirFilter.filter?(attrib,
+                                                @xmlnodes[node_start][0][1])
       unless @xmlnodes[node_start][0][1].nil?
         attribs[ncount] = @xmlnodes[node_start][0][1][attrib_key] unless @xmlnodes[node_start][0][1][attrib_key].nil?
       end

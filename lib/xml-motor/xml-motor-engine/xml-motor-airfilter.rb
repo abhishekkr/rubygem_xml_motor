@@ -22,20 +22,30 @@ module XMLMotorEngine
     end
 
     def self.filter?(attrib, xmlnode)
-      unless attrib.empty?
-        return true if xmlnode[0][1].nil?
-        check_keyval  = attrib['keyval'].collect{|keyval|
-                          xmlnode[0][1][keyval.first] == keyval.last
-                        }.include? false
-        check_key     = attrib['justkey'].collect{|key|
-                          xmlnode[0][1][key.first].nil?
-                        }.include? true
-        check_val     = attrib['justval'].collect{|val|
-                          xmlnode[0][1].each_value.include? val[1]
-                        }.include? false
-        return true if check_keyval or check_key or check_val
-      end
+      return false if attrib.empty?
+      return true if  xmlnode.nil? or
+                      has_key_val?(xmlnode, attrib['keyval']) or
+                      has_key?(xmlnode, attrib['justkey']) or
+                      has_val?(xmlnode, attrib['justval'])
       false
+    end
+
+    def self.has_key_val?(data, keyval_collection)
+      keyval_collection.collect{|keyval|
+        data[keyval.first] == keyval.last
+      }.include? false
+    end
+
+    def self.has_key?(data, key_collection)
+      key_collection.collect{|key|
+        data[key.first].nil?
+      }.include? true
+    end
+
+    def self.has_val?(data, val_collection)
+      val_collection.collect{|val|
+        data.each_value.include? val[1]
+      }.include? false
     end
   end
 end
