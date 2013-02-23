@@ -1,3 +1,8 @@
+# XMLMotorEngine
+
+xml_motor_engine = File.join(File.dirname(File.expand_path __FILE__), 'xml-motor-engine', '*.rb')
+Dir.glob(xml_motor_engine).each{|parts| require parts }
+
 module XMLMotorEngine
   def self._splitter_(xmldata)
     start_splits = xmldata.split(/</)
@@ -43,38 +48,19 @@ module XMLMotorEngine
     @xmltags
   end
 
-  def self._get_attrib_key_val_ (attrib)
-    attrib_key = attrib.split(/=/)[0].strip
-    attrib_val = attrib.split(/=/)[1..-1].join.strip
-    [attrib_key, XMLUtils.dbqot_string(attrib_val)]
-  end
-
   def self._grab_my_node_ (index_to_find, attrib_to_find=nil, with_tag=false)
-    unless attrib_to_find.nil? or attrib_to_find.empty?
-      attrib_keyval = [attrib_to_find].flatten.collect{|keyval| _get_attrib_key_val_ keyval }
-      attrib_justkey = attrib_keyval.select{|attr| attr[1].empty?}
-      attrib_justval = attrib_keyval.select{|attr| attr[0].empty?}
-      attrib_keyval  -= (attrib_justkey + attrib_justval)
-    end
+    attrib = XMLMotorEngine::AirFilter.expand_attrib_to_find(attrib_to_find)
     nodes = []
     node_count = index_to_find.size/2 - 1
     0.upto node_count do |ncount|
       node_start = index_to_find[ncount*2]
       node_stop = index_to_find[ncount*2 +1]
-      unless attrib_to_find.nil? or attrib_to_find.empty?
-        next if @xmlnodes[node_start][0][1].nil?
-        check_keyval = attrib_keyval.collect{|keyval| @xmlnodes[node_start][0][1][keyval.first] == keyval.last}.include? false
-        check_key = attrib_justkey.collect{|key| @xmlnodes[node_start][0][1][key.first].nil? }.include? true
-        check_val = attrib_justval.collect{|val| @xmlnodes[node_start][0][1].each_value.include? val[1] }.include? false
-        next if check_keyval or check_key or check_val
-      end
+      next if XMLMotorEngine::AirFilter.filter?(attrib, @xmlnodes[node_start])
+
       nodes[ncount] ||= ""
       nodes[ncount] += @xmlnodes[node_start][1] unless @xmlnodes[node_start][1].nil?
       (node_start+1).upto (node_stop-1) do |node_idx|
-        any_attrib ||= ""
-        any_attrib = XMLJoiner.dejavu_attributes(@xmlnodes[node_idx][0][1]).to_s unless @xmlnodes[node_idx][0][1].nil?
-        nodes[ncount] += "<" + @xmlnodes[node_idx][0][0] + any_attrib + ">"
-        nodes[ncount] += @xmlnodes[node_idx][1] unless @xmlnodes[node_idx][1].nil?
+        nodes[ncount] += XMLMotorEngine::Exhaust.inXML(@xmlnodes[node_idx], nodes[ncount])
       end
       if with_tag
         tagifyd = XMLJoiner.dejavu_node @xmlnodes[node_start][0]
@@ -86,25 +72,14 @@ module XMLMotorEngine
   end
 
   def self._grab_my_attrib_ (attrib_key, index_to_find, attrib_to_find=nil)
-    unless attrib_to_find.nil? or attrib_to_find.empty?
-      attrib_keyval = [attrib_to_find].flatten.collect{|keyval| _get_attrib_key_val_ keyval }
-      attrib_justkey = attrib_keyval.select{|attr| attr[1].empty?}
-      attrib_justval = attrib_keyval.select{|attr| attr[0].empty?}
-      attrib_keyval  -= (attrib_justkey + attrib_justval)
-    end
+    attrib = XMLMotorEngine::AirFilter.expand_attrib_to_find(attrib_to_find)
 
     attribs = []
     node_count = index_to_find.size/2 - 1
     0.upto node_count do |ncount|
       node_start = index_to_find[ncount*2]
       node_stop = index_to_find[ncount*2 +1]
-      unless attrib_to_find.nil? or attrib_to_find.empty?
-      	next if @xmlnodes[node_start][0][1].nil?
-        check_keyval = attrib_keyval.collect{|keyval| @xmlnodes[node_start][0][1][keyval.first] == keyval.last}.include? false
-        check_key = attrib_justkey.collect{|key| @xmlnodes[node_start][0][1][key.first].nil? }.include? true
-        check_val = attrib_justval.collect{|val| @xmlnodes[node_start][0][1].each_value.include? val[1] }.include? false
-        next if check_keyval or check_key or check_val
-      end
+      next if XMLMotorEngine::AirFilter.filter?(attrib, @xmlnodes[node_start])
       unless @xmlnodes[node_start][0][1].nil?
         attribs[ncount] = @xmlnodes[node_start][0][1][attrib_key] unless @xmlnodes[node_start][0][1][attrib_key].nil?
       end
@@ -156,6 +131,6 @@ module XMLMotorEngine
     rescue
       XMLStdout._err "Parsing processed XML Nodes."
     end
-    return nil
+    nil
   end
 end
