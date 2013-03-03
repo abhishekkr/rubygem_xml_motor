@@ -3,6 +3,13 @@
 module XMLMotorEngine
   module AirFilter
 
+    def self.if_exist_get_attrib(xmlnode_part, for_key)
+      unless xmlnode_part.nil?
+        return xmlnode_part[for_key] unless xmlnode_part[for_key].nil?
+      end
+      nil
+    end
+
     def self._get_attrib_key_val_(attrib)
       attrib_key = attrib.split(/=/)[0].strip
       attrib_val = attrib.split(/=/)[1..-1].join.strip

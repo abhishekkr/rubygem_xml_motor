@@ -71,4 +71,3 @@ class TestXMLMotor < Test::Unit::TestCase
     assert_equal XMLMotor.xmlattrib('i', xnodes, xtags, nil, 'j'), ["7"]
   end
 end
-

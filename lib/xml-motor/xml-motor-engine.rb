@@ -24,26 +24,12 @@ module XMLMotorEngine
   def self._indexify_(_nodes=nil)
     xmlnodes _nodes unless _nodes.nil?
     @xmltags = {}
-    idx = 1
     depth = 0
-    @xmlnodes[1..-1].each do |xnode|
+    @xmlnodes[1..-1].each_with_index do |xnode, idx|
       tag_name = xnode[0][0].strip.downcase
-      if tag_name.match(/^\/.*/) then
-        depth -= 1
-        @xmltags[tag_name[1..-1]][depth] ||= []
-        @xmltags[tag_name[1..-1]][depth].push idx
-      elsif tag_name.chomp.match(/^\/$/) then
-        @xmltags[tag_name] ||= {}
-        @xmltags[tag_name][depth] ||= []
-        @xmltags[tag_name][depth].push idx
-        @xmltags[tag_name][depth].push idx
-      else
-        @xmltags[tag_name] ||= {}
-        @xmltags[tag_name][depth] ||= []
-        @xmltags[tag_name][depth].push idx
-        depth += 1
-      end
-      idx +=1
+
+      @xmltags, depth = XMLMotorEngine::Exhaust.tag_hash(tag_name, idx + 1,
+                                                        depth, @xmltags)
     end
     @xmltags
   end
@@ -63,10 +49,7 @@ module XMLMotorEngine
       (node_start+1).upto (node_stop-1) do |node_idx|
         nodes[ncount] += XMLMotorEngine::Exhaust.inXML(@xmlnodes[node_idx], nodes[ncount])
       end
-      if with_tag
-        tagifyd = XMLJoiner.dejavu_node @xmlnodes[node_start][0]
-        nodes[ncount] = tagifyd.first + nodes[ncount] + tagifyd.last
-      end
+      nodes[ncount] = XMLMotorEngine::Exhaust.tagify(@xmlnodes[node_start][0], nodes[ncount]) if with_tag
     end
     nodes.delete(nil) unless attrib_to_find.nil?
     nodes
@@ -82,11 +65,10 @@ module XMLMotorEngine
       node_stop = index_to_find[ncount*2 +1]
       next if XMLMotorEngine::AirFilter.filter?(attrib,
                                                 @xmlnodes[node_start][0][1])
-      unless @xmlnodes[node_start][0][1].nil?
-        attribs[ncount] = @xmlnodes[node_start][0][1][attrib_key] unless @xmlnodes[node_start][0][1][attrib_key].nil?
-      end
+      attribs[ncount] = XMLMotorEngine::AirFilter.if_exist_get_attrib(
+                              @xmlnodes[node_start][0][1], attrib_key)
     end
-    attribs.delete(nil) unless attrib_to_find.nil?
+    attribs.delete(nil)
     attribs
   end
 
