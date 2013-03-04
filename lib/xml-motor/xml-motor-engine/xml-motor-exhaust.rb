@@ -3,6 +3,17 @@
 module XMLMotorEngine
   module Exhaust
 
+    def self.content_at_node_count(node_start_index, node_stop_index, with_tag)
+      xmlnodes = XMLMotorEngine.xmlnodes
+      node = ""
+      node += xmlnodes[node_start_index][1] unless xmlnodes[node_start_index][1].nil?
+      (node_start_index + 1).upto (node_stop_index - 1) do |node_idx|
+        node += inXML(xmlnodes[node_idx], node)
+      end
+      return tagify(xmlnodes[node_start_index][0], node) if with_tag
+      node
+    end
+
     def self.tagify(xmlnode_part, node)
       tagifyd = XMLJoiner.dejavu_node xmlnode_part
       "#{ tagifyd.first }#{ node }#{ tagifyd.last }"
