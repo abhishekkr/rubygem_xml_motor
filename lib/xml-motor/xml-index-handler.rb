@@ -24,16 +24,13 @@ module XMLIndexHandler
     osize = outer_idx.size/2 -1
     xsize = x_curr.size/2 -1
     expanded_node_indexes = []
-    0.upto osize do |o|
-      o1 = outer_idx[o*2]
-      o2 = outer_idx[o*2 +1]
-      0.upto xsize do |x|
-        x1 = x_curr[x*2]
-        x2 = x_curr[x*2 +1]
-        unless o1>x1 or o2<x2
-          expanded_node_indexes.push x1
-          expanded_node_indexes.push x2
-        end
+    (0...outer_idx.size).step(2) do |o|
+      o1, o2 = outer_idx[o], outer_idx[o + 1]
+      (0...x_curr.size).step(2) do |x|
+        x1, x2 = x_curr[x], x_curr[x + 1]
+        next if o1 > x1 || o2 < x2
+        expanded_node_indexes.push x1
+        expanded_node_indexes.push x2
       end
     end
     expanded_node_indexes.flatten
