@@ -44,8 +44,8 @@ module XMLMotorEngine
       next if XMLMotorEngine::AirFilter.filter?(attrib,
                                                 @xmlnodes[node_start][0][1])
 
-      nodes[ncount] = (nodes[ncount] || "") +
-                      XMLMotorEngine::Exhaust.content_at_node_count(node_start, node_stop, with_tag)
+      nodes[ncount] = XMLMotorEngine::Exhaust.content_at_node_count(
+                        node_start, node_stop, with_tag, nodes[ncount])
     end
     nodes.delete(nil) unless attrib_to_find.nil?
     nodes

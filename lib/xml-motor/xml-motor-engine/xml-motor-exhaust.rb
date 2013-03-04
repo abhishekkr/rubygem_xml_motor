@@ -3,9 +3,10 @@
 module XMLMotorEngine
   module Exhaust
 
-    def self.content_at_node_count(node_start_index, node_stop_index, with_tag)
+    def self.content_at_node_count(node_start_index, node_stop_index,
+                                  with_tag, node_at_count)
       xmlnodes = XMLMotorEngine.xmlnodes
-      node = ""
+      node = node_at_count || ""
       node += xmlnodes[node_start_index][1] unless xmlnodes[node_start_index][1].nil?
       (node_start_index + 1).upto (node_stop_index - 1) do |node_idx|
         node += inXML(xmlnodes[node_idx], node)
