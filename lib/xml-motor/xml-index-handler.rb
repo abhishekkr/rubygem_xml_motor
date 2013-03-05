@@ -1,23 +1,22 @@
 module XMLIndexHandler
-  def self.get_tag_indexes(xml_motor, tag)
-   xml_idx_to_find = []
+  def self.get_tag_indexes(tag)
    begin
-    xml_motor.xmltags[tag.split(".")[0]].each_value {|val| xml_idx_to_find.push val }
+    xml_idx_to_find = XMLMotorEngine.xmltags[tag.split(".")[0]].values
     xml_idx_to_find = xml_idx_to_find.flatten
 
-    tag.split(".")[1..-1].each do |tag_i|
-      outer_idx = xml_idx_to_find
-      x_curr = []
-      xml_motor.xmltags[tag_i].each_value {|val|  x_curr.push val }
-      x_curr = x_curr.flatten
-
-      xml_idx_to_find = expand_node_indexes outer_idx, x_curr
-    end
+    traverse_tag xml_idx_to_find, tag
    rescue
     XMLStdout._err "Finding index for tag:#{tag}.\nLook if it's actually present in the provided XML."
     return []
    end
-   xml_idx_to_find
+  end
+
+  def self.traverse_tag(xml_idx_to_find, tag)
+    tag.split(".")[1..-1].each do |tag_i|
+      x_curr = XMLMotorEngine.xmltags[tag_i].values.flatten
+      xml_idx_to_find = expand_node_indexes xml_idx_to_find, x_curr
+    end
+    xml_idx_to_find
   end
 
   def self.expand_node_indexes(outer_idx, x_curr)

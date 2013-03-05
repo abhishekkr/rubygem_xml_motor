@@ -75,7 +75,7 @@ module XMLMotorEngine
     elsif tag_to_find.nil?
       index_to_find = @xmltags.collect {|xtag| xtag[1].collect {|val| val[1] }}.flatten
     else
-      index_to_find = XMLIndexHandler.get_tag_indexes self, tag_to_find.downcase
+      index_to_find = XMLIndexHandler.get_tag_indexes tag_to_find.downcase
     end
     if just_attrib_val.nil?
       return _grab_my_node_ index_to_find, attrib_to_find, with_tag

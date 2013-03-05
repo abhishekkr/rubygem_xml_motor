@@ -46,7 +46,7 @@ class TestXMLMotor < Test::Unit::TestCase
     content = "<a>1<b>2</b>3<c>4</c>5</a>"
     xnodes  = XMLMotor.splitter content
     xtags   = XMLMotor.indexify xnodes
-    assert_equal xtags["a"], {0=>[1, 6]} 
+    assert_equal xtags["a"], {0=>[1, 6]}
     assert_equal xtags["b"], {1=>[2, 3]}
     assert_equal xtags["c"], {1=>[4, 5]}
   end
