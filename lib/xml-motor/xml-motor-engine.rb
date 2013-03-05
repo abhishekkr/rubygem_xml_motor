@@ -56,12 +56,10 @@ module XMLMotorEngine
 
     attribs = []
     (0...index_to_find.size).step(2) do |ncount|
-      node_start = index_to_find[ncount]
-      node_stop = index_to_find[ncount + 1]
+      node_start, node_stop = index_to_find[ncount], index_to_find[ncount + 1]
       next if XMLMotorEngine::AirFilter.filter?(attrib,
                                                 @xmlnodes[node_start][0][1])
-      attribs_idx = ncount / 2
-      attribs[attribs_idx] = XMLMotorEngine::AirFilter.if_exist_get_attrib(
+      attribs[ncount / 2] = XMLMotorEngine::AirFilter.if_exist_get_attrib(
                               @xmlnodes[node_start][0][1], attrib_key)
     end
     attribs.delete(nil)
