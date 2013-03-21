@@ -38,8 +38,7 @@ module XMLMotorEngine
     attrib = XMLMotorEngine::AirFilter.expand_attrib_to_find(attrib_to_find)
     nodes = []
     (0...index_to_find.size).step(2) do |ncount|
-      node_start = index_to_find[ncount]
-      node_stop = index_to_find[ncount +1]
+      node_start, node_stop = index_to_find[ncount], index_to_find[ncount + 1]
       next if XMLMotorEngine::AirFilter.filter?(attrib,
                                                 @xmlnodes[node_start][0][1])
 
@@ -56,22 +55,24 @@ module XMLMotorEngine
 
     attribs = []
     (0...index_to_find.size).step(2) do |ncount|
-      node_start, node_stop = index_to_find[ncount], index_to_find[ncount + 1]
-      next if XMLMotorEngine::AirFilter.filter?(attrib,
-                                                @xmlnodes[node_start][0][1])
+      node_start = index_to_find[ncount]
+      next if XMLMotorEngine::AirFilter.filter?(attrib, @xmlnodes[node_start][0][1])
       attribs[ncount / 2] = XMLMotorEngine::AirFilter.if_exist_get_attrib(
-                              @xmlnodes[node_start][0][1], attrib_key)
+                                         @xmlnodes[node_start][0][1], attrib_key)
     end
     attribs.delete(nil)
     attribs
   end
 
-  def self.xml_extracter(tag_to_find=nil, attrib_to_find=nil, with_tag=false, just_attrib_val=nil)
+  def self.xml_extracter(tag_to_find=nil, attrib_to_find=nil, with_tag=false,
+                        just_attrib_val=nil)
     index_to_find = []
     if attrib_to_find.nil? and tag_to_find.nil?
       return nil
     elsif tag_to_find.nil?
-      index_to_find = @xmltags.collect {|xtag| xtag[1].collect {|val| val[1] }}.flatten
+      index_to_find = @xmltags.collect {|xtag|
+                        xtag[1].collect {|val| val[1] }
+                      }.flatten
     else
       index_to_find = XMLIndexHandler.get_tag_indexes tag_to_find.downcase
     end
@@ -97,7 +98,8 @@ module XMLMotorEngine
     @xmltags = xml_tags || @xmltags
   end
 
-  def self.pre_processed_content(_nodes, _tags=nil, tag_to_find=nil, attrib_to_find=nil, with_tag=false, just_attrib_val=nil)
+  def self.pre_processed_content(_nodes, _tags=nil, tag_to_find=nil,
+            attrib_to_find=nil, with_tag=false, just_attrib_val=nil)
     begin
       xmlnodes _nodes
       unless _tags.nil?

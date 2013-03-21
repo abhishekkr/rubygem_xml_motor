@@ -30,20 +30,21 @@ module XMLMotorEngine
     def self.tag_hash(tag_name, idx, depth, xmltag= {})
       if tag_name.match(/^\/.*/) then
         depth -= 1
-        xmltag[tag_name[1..-1]][depth] ||= []
-        xmltag[tag_name[1..-1]][depth].push idx
+        xmltag[tag_name[1..-1]] = push_to_tag_hash xmltag[tag_name[1..-1]], depth, [idx]
       elsif tag_name.chomp.match(/^\/$/) then
-        xmltag[tag_name] ||= {}
-        xmltag[tag_name][depth] ||= []
-        xmltag[tag_name][depth].push idx
-        xmltag[tag_name][depth].push idx
+        xmltag[tag_name] = push_to_tag_hash xmltag[tag_name], depth, [idx, idx]
       else
-        xmltag[tag_name] ||= {}
-        xmltag[tag_name][depth] ||= []
-        xmltag[tag_name][depth].push idx
+        xmltag[tag_name] = push_to_tag_hash xmltag[tag_name], depth, [idx]
         depth += 1
       end
       return xmltag, depth
+    end
+
+    def self.push_to_tag_hash(hash, key, values)
+      hash ||= {}
+      hash[key] ||= []
+      values.each{|value| hash[key].push value}
+      hash
     end
   end
 end

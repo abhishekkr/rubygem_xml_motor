@@ -12,7 +12,7 @@ module XMLChopper
 
   def self.get_attribute_hash(attribzone)
     attribzone = attribzone.strip unless attribzone.nil?
-    return nil if attribzone.nil? or attribzone==""
+    return nil if attribzone.nil? || attribzone==""
     attrs = {}
   begin
     broken_attrib = attribzone.split(/=/)
